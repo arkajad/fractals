@@ -6,7 +6,7 @@
 #include <QStringList>
 #include <QDebug>
 #include <QGraphicsTextItem>
-
+#include "regionmanager.h"
 namespace Ui {
     class MainWindow;
 }
@@ -18,7 +18,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+    FractalRegionManager * rm;
 private:
     Ui::MainWindow *ui;
     QList<QList<QVector<double> > > pMatrices;

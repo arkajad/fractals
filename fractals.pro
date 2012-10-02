@@ -11,9 +11,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    region.cpp \
+    regionmanager.cpp
 
 HEADERS  += mainwindow.h \
-    math_functions.h
+    math_functions.h \
+    region.h \
+    regionmanager.h
 
 FORMS    += mainwindow.ui

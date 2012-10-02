@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->rm = new FractalRegionManager;
+    this->rm->init(0.25);
     QString t1 = "0.5,0,0\n0,0.5,0\n0,0,1";
     QString t2 = "0.5,0,0.5\n0,0.5,0\n0,0,1";
     QString t3 = "0.5,0,0.25\n0,0.5,0.5\n0,0,1";
@@ -94,32 +96,41 @@ void MainWindow::onDrawFractal() {
     pPointsLength = num_points;
     int i;
     double vector[3];
-    double rad = 1;
-    qDebug() << "Created vectors";
+    double rad = 3;
+    //qDebug() << "Created vectors";
+    QFont font;
+    font.setPixelSize(11);
+    font.setBold(false);
+    font.setFamily("Calibri");
     QGraphicsScene * scene = new QGraphicsScene;
     scene->setSceneRect(0,0,ui->graphicsView->width() - 5,ui->graphicsView->height() - 5);
     for (i = 0; i < 2; i++) {
         vector[i] = (double) rand()/RAND_MAX;
     }
-    qDebug() << "Initialized vectors";
+    //qDebug() << "Initialized vectors";
     vector[2] = 1.0;
-    qDebug() << "After initialization: x: " << QString::number(vector[0]) << " y: " << QString::number(vector[1]);
-    qDebug() << "Finale set to 1";
+    //qDebug() << "After initialization: x: " << QString::number(vector[0]) << " y: " << QString::number(vector[1]);
+    //qDebug() << "Finale set to 1";
     for (i = 0; i < num_points; i++) {
         int m = randInt(1,pMatrices.length());
         //qDebug() << "m is " << QString::number(m);
         QList<QVector<double> > matrix = pMatrices.at(m-1);
         //qDebug() << "Extracted matrix";
         matrix_x_vector(matrix,&vector[0]);
-        qDebug() << "Adding point: x: " << QString::number(vector[0]) << " y: " << QString::number(vector[1]);
+        //qDebug() << "Adding point: x: " << QString::number(vector[0]) << " y: " << QString::number(vector[1]);
         scene->addEllipse((1.0 - vector[0]) * scene->width(), (1.0 - vector[1]) * scene->height(), rad*2.0, rad*2.0,
                           QPen(), QBrush(Qt::SolidPattern));
-        pPoints[i] = (double *)malloc(sizeof(double) * 2);
-        pPoints[i][0] = vector[0];
-        pPoints[i][1] = vector[1];
+
+        int id = this->rm->assignFractalRegion(vector);
+
+        QGraphicsTextItem * item = new QGraphicsTextItem;
+        item->setFont(font);
+        item->setPlainText(QString::number(id));
+        item->setPos((1.0 - vector[0]) * scene->width(), (1.0 - vector[1]) * scene->height());
+        scene->addItem(item);
     }
+    this->rm->drawRegions(scene);
     ui->graphicsView->setScene(scene);
-    for (i = 0; i < num_points; i++) {
-         qDebug() << "Stored point is: " << QString::number(pPoints[i][0]);
-    }
+    this->rm->report();
+
 }
