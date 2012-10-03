@@ -14,7 +14,7 @@ public:
     double scale;
     int i_scale;
     int count;
-    void init(double scale);
+    void init(double scale, int pscale);
     void report();
     int s_width;
     int s_height;

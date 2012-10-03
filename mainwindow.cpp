@@ -1,13 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "math_functions.h"
+#include "math.h"
+int pscale;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     this->rm = new FractalRegionManager;
-    this->rm->init(0.25);
     QString t1 = "0.5,0,0\n0,0.5,0\n0,0,1";
     QString t2 = "0.5,0,0.5\n0,0.5,0\n0,0,1";
     QString t3 = "0.5,0,0.25\n0,0.5,0.5\n0,0,1";
@@ -92,6 +93,7 @@ void MainWindow::onClearMatrices() {
 }
 void MainWindow::onDrawFractal() {
     int num_points = ui->lineEdit->text().toInt();
+    this->rm->init(0.5, ui->lineEdit_2->text().toInt());
     pPoints = (double **)malloc(sizeof(double**) * num_points);
     pPointsLength = num_points;
     int i;
@@ -118,7 +120,7 @@ void MainWindow::onDrawFractal() {
         //qDebug() << "Extracted matrix";
         matrix_x_vector(matrix,&vector[0]);
         //qDebug() << "Adding point: x: " << QString::number(vector[0]) << " y: " << QString::number(vector[1]);
-        scene->addEllipse((1.0 - vector[0]) * scene->width(), (1.0 - vector[1]) * scene->height(), rad*2.0, rad*2.0,
+        scene->addEllipse(vector[0] * scene->width(), (1.0 - vector[1]) * scene->height(), rad*2.0, rad*2.0,
                           QPen(), QBrush(Qt::SolidPattern));
 
         int id = this->rm->assignFractalRegion(vector);
@@ -126,7 +128,7 @@ void MainWindow::onDrawFractal() {
         QGraphicsTextItem * item = new QGraphicsTextItem;
         item->setFont(font);
         item->setPlainText(QString::number(id));
-        item->setPos((1.0 - vector[0]) * scene->width(), (1.0 - vector[1]) * scene->height());
+        item->setPos(vector[0] * scene->width(), (1.0 - vector[1]) * scene->height());
         scene->addItem(item);
     }
     this->rm->drawRegions(scene);

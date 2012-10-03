@@ -69,9 +69,9 @@
    <widget class="QGroupBox" name="fractalGroupBox">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>430</x>
       <y>570</y>
-      <width>231</width>
+      <width>421</width>
       <height>111</height>
      </rect>
     </property>
@@ -94,24 +94,82 @@
     <widget class="QLineEdit" name="lineEdit">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>90</x>
        <y>30</y>
-       <width>151</width>
+       <width>111</width>
        <height>27</height>
       </rect>
+     </property>
+     <property name="text">
+      <string>100</string>
      </property>
     </widget>
     <widget class="QPushButton" name="drawFractal">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>80</y>
+       <x>260</x>
+       <y>30</y>
        <width>97</width>
-       <height>27</height>
+       <height>91</height>
       </rect>
      </property>
      <property name="text">
       <string>Draw</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>60</y>
+       <width>113</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Scale pow:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_3">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>90</y>
+       <width>113</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>58</width>
+       <height>15</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>q:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>

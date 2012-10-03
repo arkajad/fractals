@@ -2,6 +2,7 @@
 #include <math.h>
 #include <QGraphicsTextItem>
 #include <QFont>
+
 FractalRegionManager::FractalRegionManager()
 {
 }
@@ -18,8 +19,8 @@ FractalRegion * FractalRegionManager::getFractalRegionById(int id) {
         return i.value();
     }
 }
-void FractalRegionManager::init(double s) {
-    this->scale = s;
+void FractalRegionManager::init(double s,int pscale) {
+    this->scale = pow(s,pscale);
     this->i_scale = round(1/this->scale);
     count = 0;
 }
@@ -27,7 +28,7 @@ void FractalRegionManager::init(double s) {
 int FractalRegionManager::assignFractalRegion(double *vector) {
     qDebug() << "Assigning regions for: " << QString::number(vector[0]);
     qDebug() << "Scale is: " << QString::number(scale) << " i_scale is: " << QString::number(i_scale);
-    int id = floor((vector[0] * i_scale + vector[1]) * i_scale);
+    int id = floor(vector[0]*i_scale) + floor(vector[1]*i_scale) * i_scale;
     qDebug() << "ID is: " << QString::number(id);
     FractalRegion * r = this->getFractalRegionById(id);
     r->append(vector);
