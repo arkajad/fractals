@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QGraphicsTextItem>
 #include "regionmanager.h"
+#include <QVector>
 namespace Ui {
     class MainWindow;
 }
@@ -24,10 +25,12 @@ private:
     QList<QList<QVector<double> > > pMatrices;
     double ** pPoints;
     int pPointsLength;
+    QVector<double> plotter_x;
+    QVector<double> plotter_y;
 public slots:
     bool createMatrix(QString lines);
     void drawMatrices();
-
+    void plotPoint(float x, float y);
 private slots:
     void onCreateMatrixClicked();
     void onClearMatrices();

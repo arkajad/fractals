@@ -9,6 +9,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->rm = new FractalRegionManager;
+    this->connect(this->rm,SIGNAL(plotPoint(float,float)),SLOT(plotPoint(float,float)));
+    ui->Plotter->addGraph();
+    ui->Plotter->yAxis->setRange(0,9);
+    ui->Plotter->xAxis->setRange(-5,0);
+    ui->Plotter->graph(0)->setPen(QPen(Qt::blue)); // line color blue for first graph
+    ui->Plotter->graph(0)->setBrush(QBrush(QColor(0, 0, 255, 20)));
     QString t1 = "0.5,0,0\n0,0.5,0\n0,0,1";
     QString t2 = "0.5,0,0.5\n0,0.5,0\n0,0,1";
     QString t3 = "0.5,0,0.25\n0,0.5,0.5\n0,0,1";
@@ -61,7 +67,6 @@ void MainWindow::drawMatrices() {
     QString text;
     for (int i = 0; i < pMatrices.length(); i++) {
         text += "{\n";
-        ypos += 10;
         QList<QVector<double> > matrix = pMatrices.at(i);
         for (int j = 0; j < matrix.length(); j++) {
             QVector<double> v = matrix.at(j);
@@ -74,14 +79,14 @@ void MainWindow::drawMatrices() {
             ypos += 10;
         }
         text += "}\n\n";
-        ypos += 10;
+
         QGraphicsTextItem * item = new QGraphicsTextItem;
         //item->setFont(font);
         item->setPlainText(text);
         item->setPos(0,ypos);
         item->setTextWidth(400);
         scene->addItem(item);
-        ypos += 5;
+        ypos += 20;
         text = "";
     }
     qDebug() << "setting scene";
@@ -94,6 +99,8 @@ void MainWindow::onClearMatrices() {
 void MainWindow::onDrawFractal() {
     int num_points = ui->lineEdit->text().toInt();
     this->rm->init(0.5, ui->lineEdit_2->text().toInt());
+    this->rm->q = ui->lineEdit_3->text().toFloat();
+
     pPoints = (double **)malloc(sizeof(double**) * num_points);
     pPointsLength = num_points;
     int i;
@@ -125,14 +132,22 @@ void MainWindow::onDrawFractal() {
 
         int id = this->rm->assignFractalRegion(vector);
 
-        QGraphicsTextItem * item = new QGraphicsTextItem;
+        /* QGraphicsTextItem * item = new QGraphicsTextItem;
         item->setFont(font);
         item->setPlainText(QString::number(id));
         item->setPos(vector[0] * scene->width(), (1.0 - vector[1]) * scene->height());
-        scene->addItem(item);
+        scene->addItem(item); */
     }
     this->rm->drawRegions(scene);
+    ui->graphicsView->scene()->clear();
     ui->graphicsView->setScene(scene);
     this->rm->report();
 
+}
+void MainWindow::plotPoint(float x, float y) {
+    plotter_x.append(x);
+    plotter_y.append(y);
+    qDebug() << "Called";
+    ui->Plotter->graph(0)->setData(plotter_x,plotter_y);
+    ui->Plotter->replot();
 }

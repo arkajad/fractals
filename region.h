@@ -10,6 +10,7 @@ public:
     int length;
     int id;
     void append(double * point);
+    void cleanup();
 };
 
 #endif // FractalRegion_H

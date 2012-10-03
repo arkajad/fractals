@@ -1,13 +1,15 @@
 #ifndef FractalRegionMANAGER_H
 #define FractalRegionMANAGER_H
+#include <QObject>
 #include <QHash>
 #include <QDebug>
 #include <QGraphicsScene>
 #include "region.h"
-class FractalRegionManager
+class FractalRegionManager: public QObject
 {
+    Q_OBJECT
 public:
-    FractalRegionManager();
+    explicit FractalRegionManager(QObject *parent = 0);
     QHash<int,FractalRegion *> FractalRegions;
     FractalRegion * getFractalRegionById(int id);
     int assignFractalRegion(double * vector);
@@ -18,7 +20,11 @@ public:
     void report();
     int s_width;
     int s_height;
+    float q;
     void drawRegions(QGraphicsScene * scene);
+signals:
+    void plotPoint(float x, float y);
+public slots:
 };
 
 #endif // FractalRegionMANAGER_H

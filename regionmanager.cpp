@@ -3,7 +3,8 @@
 #include <QGraphicsTextItem>
 #include <QFont>
 
-FractalRegionManager::FractalRegionManager()
+FractalRegionManager::FractalRegionManager(QObject *parent) :
+    QObject(parent)
 {
 }
 FractalRegion * FractalRegionManager::getFractalRegionById(int id) {
@@ -40,10 +41,22 @@ void FractalRegionManager::report() {
 
     QList<int> keys = this->FractalRegions.keys();
     FractalRegion * r;
+    float sum;
     foreach(int key,keys) {
         r = FractalRegions.value(key);
-        qDebug() << "Region" << QString::number(r->id) << " count: " << QString::number(r->length);
+        qDebug() << "Legth: " << QString::number(r->length);
+        // Here is where we do our calculations
+        sum += pow(r->length,this->q);
+        // here is where we cleanup after ourselves
+        r->cleanup();
     }
+    float y = log10(sum);
+    float x = log10(this->scale);
+    qDebug() << QString::number(y) << " = log10(" << QString::number(sum) << ") y";
+    qDebug() << QString::number(x) << " = log10(" << QString::number(this->scale) << ") x";
+    emit plotPoint(x,y);
+    // And then we clean it up
+    this->FractalRegions.clear();
 }
 void FractalRegionManager::drawRegions(QGraphicsScene *scene) {
 
