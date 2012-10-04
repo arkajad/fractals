@@ -43,10 +43,15 @@ void FractalWorker::process() {
     // Now let's loop through and resize
 
     int start;
+    int prog = 0;
+    int total = this->pscale;
     for (start = this->pscale - 1; start > 0; start--) {
         this->rm->redistribute(0.5,start);
         this->rm->report();
+        prog++;
+        emit updateProgressSignal(prog,total);
     }
+    emit updateProgressSignal(total,total);
 }
 void FractalWorker::plotPointSlot(float x, float y) {
     qDebug() << "Emitting plotPointSignal" << QString::number(x) << "," << QString::number(y);

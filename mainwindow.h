@@ -34,6 +34,7 @@ public slots:
     void plotPoint(float x, float y);
     void drawPoint(double x, double y);
     void updateProgress(int c,int t);
+    void clear();
 private slots:
     void onCreateMatrixClicked();
     void onClearMatrices();

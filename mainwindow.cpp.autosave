@@ -162,7 +162,7 @@ void MainWindow::plotPoint(float x, float y) {
     for (int i = plotter_x.size() - 1; i > -1; i--) {
                 points.append(N(plotter_x.at(i)) + "," + N(plotter_y.at(i)));
     }
-    points.append("Length is: " + N(points.length()));
+    //points.append("Length is: " + N(points.length()));
     ui->plottedPoints->setPlainText(points.join("\n"));
 }
 void MainWindow::drawPoint(double x, double y) {
