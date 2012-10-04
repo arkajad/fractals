@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+CONFIG += qt debug
 
 TARGET = fractals
 TEMPLATE = app
@@ -14,12 +15,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     region.cpp \
     regionmanager.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    fractalworker.cpp
 
 HEADERS  += mainwindow.h \
     math_functions.h \
     region.h \
     regionmanager.h \
-    qcustomplot.h
+    qcustomplot.h \
+    fractalworker.h
 
 FORMS    += mainwindow.ui

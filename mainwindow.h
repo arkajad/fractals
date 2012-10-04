@@ -20,9 +20,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     FractalRegionManager * rm;
+    QList<QList<QVector<double> > > pMatrices;
 private:
     Ui::MainWindow *ui;
-    QList<QList<QVector<double> > > pMatrices;
+
     double ** pPoints;
     int pPointsLength;
     QVector<double> plotter_x;
@@ -31,10 +32,14 @@ public slots:
     bool createMatrix(QString lines);
     void drawMatrices();
     void plotPoint(float x, float y);
+    void drawPoint(double x, double y);
+    void updateProgress(int c,int t);
 private slots:
     void onCreateMatrixClicked();
     void onClearMatrices();
     void onDrawFractal();
+signals:
+    void drawPointSignal(double x,double y);
 };
 
 #endif // MAINWINDOW_H

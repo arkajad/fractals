@@ -2,7 +2,7 @@
 #include <math.h>
 #include <QGraphicsTextItem>
 #include <QFont>
-
+#define N(x) QString::number(x)
 FractalRegionManager::FractalRegionManager(QObject *parent) :
     QObject(parent)
 {
@@ -21,16 +21,51 @@ FractalRegion * FractalRegionManager::getFractalRegionById(int id) {
     }
 }
 void FractalRegionManager::init(double s,int pscale) {
+    qDebug() << "rm->init called with " << QString::number(s) << "," << QString::number(pscale);
     this->scale = pow(s,pscale);
     this->i_scale = round(1/this->scale);
+    qDebug() << "at start, i_scale == " << N(this->i_scale);
     count = 0;
+}
+void FractalRegionManager::redistribute(double s,int new_pscale) {
+    qDebug() << "New pscale is: " << QString::number(new_pscale) ;
+    QHash<int,FractalRegion *> new_fractal_regions;
+    this->scale = pow(s,new_pscale);
+    this->i_scale = round(1/this->scale);
+    this->count = 0;
+    QList<int> keys = this->FractalRegions.keys();
+    FractalRegion * r;
+    FractalRegion * new_region;
+    foreach(int key,keys) {
+        qDebug() << "Resizing region: " << QString::number(key);
+        r = FractalRegions.value(key);
+        qDebug() << "r->id: " << N(r->id) << " i_scale: " << N(this->i_scale);
+        int new_id = floor( r->id / (2 * this->i_scale) ) * (this->i_scale / 2) + ( floor( (r->id % this->i_scale) / 2 ) );
+        QHash<int, FractalRegion *>::const_iterator new_region_iterator = new_fractal_regions.find(new_id);
+        if ( new_region_iterator == new_fractal_regions.end() ) {
+            new_region = new FractalRegion;
+            new_region->id = new_id;
+            new_region->length = 0;
+            new_region->length += r->length;
+            new_fractal_regions.insert(new_id,new_region);
+            count++;
+        } else {
+            new_region = new_region_iterator.value();
+            new_region->length += r->length;
+        }
+        //r->cleanup();
+    }
+    FractalRegions.clear();
+    keys = new_fractal_regions.keys();
+     foreach(int key,keys) {
+         FractalRegions.insert(key,new_fractal_regions.value(key));
+     }
+
 }
 
 int FractalRegionManager::assignFractalRegion(double *vector) {
-    qDebug() << "Assigning regions for: " << QString::number(vector[0]);
-    qDebug() << "Scale is: " << QString::number(scale) << " i_scale is: " << QString::number(i_scale);
+
     int id = floor(vector[0]*i_scale) + floor(vector[1]*i_scale) * i_scale;
-    qDebug() << "ID is: " << QString::number(id);
     FractalRegion * r = this->getFractalRegionById(id);
     r->append(vector);
     return r->id;
@@ -44,7 +79,6 @@ void FractalRegionManager::report() {
     float sum;
     foreach(int key,keys) {
         r = FractalRegions.value(key);
-        qDebug() << "Legth: " << QString::number(r->length);
         // Here is where we do our calculations
         sum += pow(r->length,this->q);
         // here is where we cleanup after ourselves
@@ -52,11 +86,9 @@ void FractalRegionManager::report() {
     }
     float y = log10(sum);
     float x = log10(this->scale);
-    qDebug() << QString::number(y) << " = log10(" << QString::number(sum) << ") y";
-    qDebug() << QString::number(x) << " = log10(" << QString::number(this->scale) << ") x";
     emit plotPoint(x,y);
     // And then we clean it up
-    this->FractalRegions.clear();
+    //this->FractalRegions.clear();
 }
 void FractalRegionManager::drawRegions(QGraphicsScene *scene) {
 

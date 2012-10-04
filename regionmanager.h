@@ -22,6 +22,7 @@ public:
     int s_height;
     float q;
     void drawRegions(QGraphicsScene * scene);
+    void redistribute(double s,int new_pscale);
 signals:
     void plotPoint(float x, float y);
 public slots:
