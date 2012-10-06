@@ -28,12 +28,16 @@ private:
     int pPointsLength;
     QVector<double> plotter_x;
     QVector<double> plotter_y;
+    QVector<double> plotter_x2;
+    QVector<double> plotter_y2;
 public slots:
     bool createMatrix(QString lines);
     void drawMatrices();
     void plotPoint(float x, float y);
+    void plotPoint2(float x, float y);
     void drawPoint(double x, double y);
     void updateProgress(int c,int t);
+    void onLinearRegression();
     void clear();
 private slots:
     void onCreateMatrixClicked();

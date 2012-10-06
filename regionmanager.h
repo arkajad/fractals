@@ -20,6 +20,7 @@ public:
     void report();
     int s_width;
     int s_height;
+    int num_points;
     float q;
     void drawRegions(QGraphicsScene * scene);
     void redistribute(double s,int new_pscale);

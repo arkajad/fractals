@@ -1,5 +1,6 @@
 #include "fractalworker.h"
 #include <QFont>
+
 FractalWorker::FractalWorker(QObject *parent) :
     QObject(parent)
 {
@@ -7,12 +8,13 @@ FractalWorker::FractalWorker(QObject *parent) :
 void FractalWorker::process() {
     int i;
     double vector[3];
-
     //qDebug() << "Created vectors";
     this->rm = new FractalRegionManager;
     this->connect(this->rm,SIGNAL(plotPoint(float,float)),SLOT(plotPointSlot(float,float)));
     this->rm->init(this->scale,this->pscale);
     this->rm->q = this->q;
+    this->rm->num_points = this->num_points;
+
     for (i = 0; i < 2; i++) {
         vector[i] = (double) rand()/RAND_MAX;
     }

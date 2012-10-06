@@ -37,9 +37,9 @@ void FractalRegionManager::redistribute(double s,int new_pscale) {
     FractalRegion * r;
     FractalRegion * new_region;
     foreach(int key,keys) {
-        qDebug() << "Resizing region: " << QString::number(key);
+//        qDebug() << "Resizing region: " << QString::number(key);
         r = FractalRegions.value(key);
-        qDebug() << "r->id: " << N(r->id) << " i_scale: " << N(this->i_scale);
+//        qDebug() << "r->id: " << N(r->id) << " i_scale: " << N(this->i_scale);
         int new_id = floor( r->id / (2 * this->i_scale) ) * (this->i_scale / 2) + ( floor( (r->id % this->i_scale) / 2 ) );
         QHash<int, FractalRegion *>::const_iterator new_region_iterator = new_fractal_regions.find(new_id);
         if ( new_region_iterator == new_fractal_regions.end() ) {
@@ -76,19 +76,29 @@ void FractalRegionManager::report() {
 
     QList<int> keys = this->FractalRegions.keys();
     FractalRegion * r;
-    float sum;
-    foreach(int key,keys) {
-        r = FractalRegions.value(key);
-        // Here is where we do our calculations
-        sum += pow(r->length,this->q);
-        // here is where we cleanup after ourselves
-        r->cleanup();
+    float sum=0.0;
+    if (this->q != 1) {
+        foreach(int key,keys) {
+            r = FractalRegions.value(key);
+            // Here is where we do our calculations
+            sum += pow(r->length,this->q);
+        }
+
+        float y = (log(sum)-(this->q)*log(num_points))/(this->q-1);
+        float x = log(this->scale);
+        emit plotPoint(x,y);
+    } else {
+
+        foreach(int key,keys) {
+            r = FractalRegions.value(key);
+            // Here is where we do our calculations
+            sum += (r->length)*(log(r->length)-log(num_points));
+         }
+        sum=sum/num_points;
+        float y = sum;
+        float x = log(this->scale);
+        emit plotPoint(x,y);
     }
-    float y = log10(sum);
-    float x = log10(this->scale);
-    emit plotPoint(x,y);
-    // And then we clean it up
-    //this->FractalRegions.clear();
 }
 void FractalRegionManager::drawRegions(QGraphicsScene *scene) {
 

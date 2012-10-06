@@ -338,10 +338,10 @@ QCPGraph::QCPGraph(QCPAxis *keyAxis, QCPAxis *valueAxis) :
   setErrorPen(QPen(Qt::black));
   setBrush(Qt::NoBrush);
   setSelectedPen(QPen(QColor(80, 80, 255), 2.5));
+  //ark's pen
   setSelectedBrush(Qt::NoBrush);
-  
   setLineStyle(lsLine);
-  setScatterStyle(QCP::ssNone);
+  setScatterStyle(QCP::ssCircle);
   setScatterSize(6);
   setErrorType(etNone);
   setErrorBarSize(6);
@@ -9226,7 +9226,7 @@ QCPCurve::QCPCurve(QCPAxis *keyAxis, QCPAxis *valueAxis) :
   mSelectedBrush = mBrush;
   
   setScatterSize(6);
-  setScatterStyle(QCP::ssNone);
+  setScatterStyle(QCP::ssCross);
   setLineStyle(lsLine);
 }
 
