@@ -1,0 +1,6 @@
+*.swp
+*~
+*.bak
+moc_*
+*.o
+*.pro.user
