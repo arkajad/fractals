@@ -139,14 +139,16 @@ void FractalRegionManager::drawImage() {
     foreach(int key,keys) {
         r = FractalRegions.value(key);
         if (r->length > max_c)
-//            max_c = log(r->length) + 1;
-            max_c = r->length;
+            max_c = log(log(r->length) + 1)+1;
+//            max_c = r->length;
     }
     foreach(int key,keys) {
         r = FractalRegions.value(key);
         int y = this->i_scale - floor(r->id / this->i_scale);
         int x = (r->id % this->i_scale);
-        int hue = round(( (255 * (float)r->length) / (float)max_c));
+        double to_color = log(log((float)r->length)+1)+1;
+         int hue = round(( (255 * (float)r->length) / (float)max_c));
+//        int hue = round(( (255 * to_color) / (float)max_c));
         QPen b;
         QColor c;
 
