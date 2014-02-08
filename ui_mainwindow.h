@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon Oct 8 15:21:37 2012
-**      by: Qt User Interface Compiler version 4.8.1
+** Created: Sat Feb 8 11:09:16 2014
+**      by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -61,6 +61,7 @@ public:
     QGraphicsView *imageTabGraphic;
     QProgressBar *progressBar;
     QLabel *StatusLabel;
+    QPushButton *useScriptButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -154,10 +155,13 @@ public:
         StatusLabel = new QLabel(centralWidget);
         StatusLabel->setObjectName(QString::fromUtf8("StatusLabel"));
         StatusLabel->setGeometry(QRect(40, 660, 55, 14));
+        useScriptButton = new QPushButton(centralWidget);
+        useScriptButton->setObjectName(QString::fromUtf8("useScriptButton"));
+        useScriptButton->setGeometry(QRect(290, 560, 85, 27));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1024, 25));
+        menuBar->setGeometry(QRect(0, 0, 1024, 29));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -172,6 +176,7 @@ public:
         QObject::connect(drawFractal, SIGNAL(clicked()), MainWindow, SLOT(onDrawFractal()));
         QObject::connect(restartButton, SIGNAL(clicked()), MainWindow, SLOT(clear()));
         QObject::connect(linearRegressionButton, SIGNAL(clicked()), MainWindow, SLOT(onLinearRegression()));
+        QObject::connect(useScriptButton, SIGNAL(clicked()), MainWindow, SLOT(onUseScriptClicked()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -199,6 +204,7 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(PlotTab), QApplication::translate("MainWindow", "Plot Tab", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(imageTab), QApplication::translate("MainWindow", "Image Tab", 0, QApplication::UnicodeUTF8));
         StatusLabel->setText(QApplication::translate("MainWindow", "Status", 0, QApplication::UnicodeUTF8));
+        useScriptButton->setText(QApplication::translate("MainWindow", "Script", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

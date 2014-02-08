@@ -8,6 +8,7 @@
 #include <QGraphicsTextItem>
 #include "regionmanager.h"
 #include <QVector>
+#include <QScriptValue>
 namespace Ui {
     class MainWindow;
 }
@@ -21,6 +22,9 @@ public:
     ~MainWindow();
     FractalRegionManager * rm;
     QList<QList<QVector<double> > > pMatrices;
+    Q_PROPERTY(QList<QList<double> > smatrices READ get_smatrices WRITE set_smatrices SCRIPTABLE true)
+    double alpha;
+    QList<QList<double> > smatrices;
 private:
     Ui::MainWindow *ui;
 
@@ -30,6 +34,8 @@ private:
     QVector<double> plotter_y;
     QVector<double> plotter_x2;
     QVector<double> plotter_y2;
+
+
 public slots:
     bool createMatrix(QString lines);
     void drawMatrices();
@@ -38,11 +44,31 @@ public slots:
     void drawPoint(double x, double y);
     void updateProgress(int c,int t);
     void onLinearRegression();
+    QList<QList<double> > get_smatrices() { return this->smatrices; }
+    void set_smatrices(QList<QList<double> >sm) { qDebug() << "Received: " << sm; this->smatrices = sm; }
+    void setMatrices(QScriptValue v) {
+        this->smatrices.clear();
+        qDebug() << "Received QSV: " << v.toQObject();
+         QList<QVariant> l1 = v.toVariant().toList();
+         for ( int i = 0; i < l1.length(); i++ ) {
+             QVariant val = l1.at(i);
+             QList<QVariant> l2 = val.toList();
+             QList<double> l3;
+             for( int j = 0; j < l2.length(); j++ ) {
+                 l3.append(l2.at(j).toDouble());
+             }
+             this->smatrices.append(l3);
+         }
+         qDebug() << this->smatrices;
+    }
+    void setAlpha(double a) { this->alpha = a; }
+
     void clear();
 private slots:
     void onCreateMatrixClicked();
     void onClearMatrices();
     void onDrawFractal();
+    void onUseScriptClicked();
 signals:
     void drawPointSignal(double x,double y);
 };

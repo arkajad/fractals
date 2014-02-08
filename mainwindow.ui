@@ -306,6 +306,19 @@
      <string>Status</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="useScriptButton">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>560</y>
+      <width>85</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Script</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -313,7 +326,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>25</height>
+     <height>29</height>
     </rect>
    </property>
   </widget>
@@ -345,8 +358,8 @@
    <slot>onCreateMatrixClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>475</x>
-     <y>321</y>
+     <x>150</x>
+     <y>602</y>
     </hint>
     <hint type="destinationlabel">
      <x>366</x>
@@ -377,8 +390,8 @@
    <slot>onDrawFractal()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>608</x>
-     <y>701</y>
+     <x>650</x>
+     <y>702</y>
     </hint>
     <hint type="destinationlabel">
      <x>511</x>
@@ -418,6 +431,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>useScriptButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onUseScriptClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>356</x>
+     <y>623</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>519</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onCreateMatrixClicked()</slot>
@@ -425,5 +454,6 @@
   <slot>onDrawFractal()</slot>
   <slot>clear()</slot>
   <slot>onLinearRegression()</slot>
+  <slot>onUseScriptClicked()</slot>
  </slots>
 </ui>

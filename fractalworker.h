@@ -18,6 +18,8 @@ public:
     int skip;
     FractalRegionManager * rm;
     QList<QList<QVector<double> > > pMatrices;
+    QList<QList<double> > smatrices;
+    double alpha;
 signals:
     void plotPointSignal(float x, float y);
     void drawPointSignal(double x, double y);

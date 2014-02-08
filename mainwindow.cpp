@@ -4,6 +4,10 @@
 #include "math.h"
 #include "fractalworker.h"
 #include <QThread>
+#include <QFileDialog>
+#include <QScriptEngine>
+#include <QScriptValue>
+#include <QMessageBox>
 #define N(x) QString::number(x)
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -117,6 +121,8 @@ void MainWindow::onDrawFractal() {
     ui->graphicsView->scene()->clear();
     QThread* thread = new QThread;
     FractalWorker * worker = new FractalWorker;
+    worker->alpha = this->alpha;
+    worker->smatrices = this->smatrices;
     worker->num_points = num_points;
     worker->q = ui->lineEdit_3->text().toFloat();
     worker->pMatrices = this->pMatrices;
@@ -294,4 +300,31 @@ void MainWindow::onLinearRegression() {
     ui->Plotter->replot();
     qDebug() << "Done";
 
+}
+void MainWindow::onUseScriptClicked() {
+    qDebug() << "Clicked";
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                     "",
+                                                     tr("Files (*.*)"));
+    qDebug() << "File is: " << fileName;
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly)) {
+
+        return;
+    }
+
+    QTextStream in(&file);
+    in.setCodec("UTF-8");
+    QString script = in.readAll();
+    file.close();
+    qDebug() << "Script is: " << script;
+
+    QScriptEngine interpreter;
+    QScriptValue objectValue = interpreter.newQObject(this);
+    interpreter.globalObject().setProperty("MainWindow", objectValue);
+    interpreter.evaluate(script);
+    if ( interpreter.hasUncaughtException() ) {
+        qDebug() << interpreter.uncaughtException().toString();
+        QMessageBox::critical(this,"There was an error", interpreter.uncaughtException().toString() + " at line: " + N(interpreter.uncaughtExceptionLineNumber()));
+    }
 }

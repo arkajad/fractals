@@ -30,11 +30,18 @@ void FractalWorker::process() {
 //                          {1.0,0.0,0.0}};
     double sq3 = 1/sqrt(3);
     double sq6 = 1/sqrt(6);
-    double vertices[][3] = {{-1,-sq3,-sq6},{1,-sq3,-sq6},{0,2*sq3,-sq6},{0,0,3*sq6}};
-    int lv = 4;
+    //double vertices[][3] = {{-1,-sq3,-sq6},{1,-sq3,-sq6},{0,2*sq3,-sq6},{0,0,3*sq6}};
+
+    double vertices[this->smatrices.length()][3];
+    for ( int _i = 0; _i < this->smatrices.length(); _i++ ) {
+        vertices[_i][0] = this->smatrices.at(_i).at(0);
+        vertices[_i][1] = this->smatrices.at(_i).at(1);
+        vertices[_i][2] = this->smatrices.at(_i).at(2);
+    }
+    int lv = this->smatrices.length();
     double new_vector[lv][3];
 //    double a = 0.58;
-    double a = 0.5;
+    double a = this->alpha;
     double a1 = 1 - a*a;
     double a2 = 2*a;
     double * p = new double[lv];
