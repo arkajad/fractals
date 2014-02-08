@@ -108,7 +108,11 @@ void FractalWorker::process() {
 //        qDebug() << "Adding point: x: " << QString::number(vector[0]) << " y: " << QString::number(vector[1]);
         emit drawPointSignal(vector[0],vector[1]);
 
-        int id = this->rm->assignFractalRegion(vector);
+        if ( fabs(vector[0]) > this->the_d && fabs(vector[1]) > this->the_d) {
+            int id = this->rm->assignFractalRegion(vector);
+        }
+
+
         if (randInt(1,100) < 25) {
             emit updateProgressSignal(i,num_points);
         }

@@ -122,6 +122,7 @@ void MainWindow::onDrawFractal() {
     QThread* thread = new QThread;
     FractalWorker * worker = new FractalWorker;
     worker->alpha = this->alpha;
+    worker->the_d = this->the_d;
     worker->smatrices = this->smatrices;
     worker->num_points = num_points;
     worker->q = ui->lineEdit_3->text().toFloat();

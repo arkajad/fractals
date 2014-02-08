@@ -20,6 +20,7 @@ public:
     QList<QList<QVector<double> > > pMatrices;
     QList<QList<double> > smatrices;
     double alpha;
+    double the_d;
 signals:
     void plotPointSignal(float x, float y);
     void drawPointSignal(double x, double y);

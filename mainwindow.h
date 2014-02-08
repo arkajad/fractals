@@ -24,6 +24,7 @@ public:
     QList<QList<QVector<double> > > pMatrices;
     Q_PROPERTY(QList<QList<double> > smatrices READ get_smatrices WRITE set_smatrices SCRIPTABLE true)
     double alpha;
+    double the_d;
     QList<QList<double> > smatrices;
 private:
     Ui::MainWindow *ui;
@@ -62,7 +63,7 @@ public slots:
          qDebug() << this->smatrices;
     }
     void setAlpha(double a) { this->alpha = a; }
-
+    void setD(double d) { this->the_d = d; }
     void clear();
 private slots:
     void onCreateMatrixClicked();
