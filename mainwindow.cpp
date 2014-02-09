@@ -329,3 +329,7 @@ void MainWindow::onUseScriptClicked() {
         QMessageBox::critical(this,"There was an error", interpreter.uncaughtException().toString() + " at line: " + N(interpreter.uncaughtExceptionLineNumber()));
     }
 }
+
+void MainWindow::onSavePlottedPDF() {
+    this->ui->Plotter->savePdf( QString("plot.pdf") );
+}

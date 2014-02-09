@@ -263,6 +263,19 @@
        <string>Linear Regression</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="savePlotPDF">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>480</y>
+        <width>95</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Save PDF</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="imageTab">
      <attribute name="title">
@@ -447,6 +460,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>savePlotPDF</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onSavePlottedPDF()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>749</x>
+     <y>570</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>396</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onCreateMatrixClicked()</slot>
@@ -455,5 +484,6 @@
   <slot>clear()</slot>
   <slot>onLinearRegression()</slot>
   <slot>onUseScriptClicked()</slot>
+  <slot>onSavePlottedPDF()</slot>
  </slots>
 </ui>

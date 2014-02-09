@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun Feb 9 11:21:45 2014
+** Created: Sun Feb 9 13:28:05 2014
 **      by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -57,6 +57,7 @@ public:
     QCustomPlot *Plotter;
     QPlainTextEdit *plottedPoints;
     QPushButton *linearRegressionButton;
+    QPushButton *savePlotPDF;
     QWidget *imageTab;
     QGraphicsView *imageTabGraphic;
     QProgressBar *progressBar;
@@ -141,6 +142,9 @@ public:
         linearRegressionButton = new QPushButton(PlotTab);
         linearRegressionButton->setObjectName(QString::fromUtf8("linearRegressionButton"));
         linearRegressionButton->setGeometry(QRect(866, 480, 141, 27));
+        savePlotPDF = new QPushButton(PlotTab);
+        savePlotPDF->setObjectName(QString::fromUtf8("savePlotPDF"));
+        savePlotPDF->setGeometry(QRect(700, 480, 95, 27));
         tabWidget->addTab(PlotTab, QString());
         imageTab = new QWidget();
         imageTab->setObjectName(QString::fromUtf8("imageTab"));
@@ -177,6 +181,7 @@ public:
         QObject::connect(restartButton, SIGNAL(clicked()), MainWindow, SLOT(clear()));
         QObject::connect(linearRegressionButton, SIGNAL(clicked()), MainWindow, SLOT(onLinearRegression()));
         QObject::connect(useScriptButton, SIGNAL(clicked()), MainWindow, SLOT(onUseScriptClicked()));
+        QObject::connect(savePlotPDF, SIGNAL(clicked()), MainWindow, SLOT(onSavePlottedPDF()));
 
         tabWidget->setCurrentIndex(1);
 
@@ -201,6 +206,7 @@ public:
         label_3->setText(QApplication::translate("MainWindow", "Skip", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(Fractaltab), QApplication::translate("MainWindow", "Fractal Tab", 0, QApplication::UnicodeUTF8));
         linearRegressionButton->setText(QApplication::translate("MainWindow", "Linear Regression", 0, QApplication::UnicodeUTF8));
+        savePlotPDF->setText(QApplication::translate("MainWindow", "Save PDF", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(PlotTab), QApplication::translate("MainWindow", "Plot Tab", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(imageTab), QApplication::translate("MainWindow", "Image Tab", 0, QApplication::UnicodeUTF8));
         StatusLabel->setText(QApplication::translate("MainWindow", "Status", 0, QApplication::UnicodeUTF8));

@@ -70,6 +70,7 @@ private slots:
     void onClearMatrices();
     void onDrawFractal();
     void onUseScriptClicked();
+    void onSavePlottedPDF();
 signals:
     void drawPointSignal(double x,double y);
 };
