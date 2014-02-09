@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sat Feb 8 11:09:16 2014
+** Created: Sun Feb 9 11:21:45 2014
 **      by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -178,7 +178,7 @@ public:
         QObject::connect(linearRegressionButton, SIGNAL(clicked()), MainWindow, SLOT(onLinearRegression()));
         QObject::connect(useScriptButton, SIGNAL(clicked()), MainWindow, SLOT(onUseScriptClicked()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
