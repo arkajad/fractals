@@ -91,7 +91,7 @@
     <widget class="QPushButton" name="drawFractal">
      <property name="geometry">
       <rect>
-       <x>220</x>
+       <x>370</x>
        <y>30</y>
        <width>97</width>
        <height>61</height>
@@ -159,7 +159,7 @@
     <widget class="QPushButton" name="restartButton">
      <property name="geometry">
       <rect>
-       <x>320</x>
+       <x>480</x>
        <y>30</y>
        <width>94</width>
        <height>61</height>
@@ -190,6 +190,19 @@
        <width>113</width>
        <height>25</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="noDrawFractalButton">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>30</y>
+       <width>95</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>No Draw</string>
      </property>
     </widget>
    </widget>
@@ -246,7 +259,7 @@
         <x>700</x>
         <y>10</y>
         <width>311</width>
-        <height>471</height>
+        <height>461</height>
        </rect>
       </property>
      </widget>
@@ -403,7 +416,7 @@
    <slot>onDrawFractal()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>650</x>
+     <x>800</x>
      <y>702</y>
     </hint>
     <hint type="destinationlabel">
@@ -419,7 +432,7 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>796</x>
+     <x>956</x>
      <y>656</y>
     </hint>
     <hint type="destinationlabel">
@@ -476,6 +489,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>noDrawFractalButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onNoDrawFractal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>741</x>
+     <y>689</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>642</x>
+     <y>603</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onCreateMatrixClicked()</slot>
@@ -485,5 +514,6 @@
   <slot>onLinearRegression()</slot>
   <slot>onUseScriptClicked()</slot>
   <slot>onSavePlottedPDF()</slot>
+  <slot>onNoDrawFractal()</slot>
  </slots>
 </ui>

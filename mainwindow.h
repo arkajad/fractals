@@ -35,6 +35,7 @@ private:
     QVector<double> plotter_y;
     QVector<double> plotter_x2;
     QVector<double> plotter_y2;
+    bool really_draw;
 
 
 public slots:
@@ -69,6 +70,8 @@ private slots:
     void onCreateMatrixClicked();
     void onClearMatrices();
     void onDrawFractal();
+    void _onDrawFractal();
+    void onNoDrawFractal();
     void onUseScriptClicked();
     void onSavePlottedPDF();
 signals:

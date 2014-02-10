@@ -106,7 +106,16 @@ void MainWindow::onClearMatrices() {
     pMatrices.clear();
     drawMatrices();
 }
+void MainWindow::onNoDrawFractal() {
+    this->really_draw = false;
+    _onDrawFractal();
+}
 void MainWindow::onDrawFractal() {
+    this->really_draw = true;
+    _onDrawFractal();
+}
+
+void MainWindow::_onDrawFractal() {
     int num_points = ui->lineEdit->text().toInt();
     //this->rm->init(0.5, ui->lineEdit_2->text().toInt());
     //this->rm->q = ui->lineEdit_3->text().toFloat();
@@ -191,6 +200,9 @@ void MainWindow::plotPoint2(float x, float y) {
     ui->Plotter->replot();
 }
 void MainWindow::drawPoint(double x, double y) {
+    if ( this->really_draw == false ) {
+        return;
+    }
     double rad = 1;
     QGraphicsScene * scene = ui->graphicsView->scene();
     scene->addEllipse(x * (scene->width()-10), (1.0 - y) * (scene->height()-10), rad*2.0, rad*2.0,
@@ -286,7 +298,7 @@ void MainWindow::onLinearRegression() {
     textLabel->setPositionAlignment(Qt::AlignTop|Qt::AlignHCenter);
     textLabel->position->setType(QCPItemPosition::ptAxisRectRatio);
     textLabel->position->setCoords(0.5, 0); // place position at center/top of axis rect
-    textLabel->setText("SLOPE = " + QString::number(b));
+    textLabel->setText("SLOPE = " + QString::number(b) + "  alpha = " + N(this->alpha));
     textLabel->setFont(QFont(font().family(), 16)); // make font a bit larger
     textLabel->setPen(QPen(Qt::black));
 

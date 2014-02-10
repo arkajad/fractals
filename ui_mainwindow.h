@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun Feb 9 13:28:05 2014
+** Created: Mon Feb 10 12:22:59 2014
 **      by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -50,6 +50,7 @@ public:
     QPushButton *restartButton;
     QLabel *label_3;
     QLineEdit *toSkip;
+    QPushButton *noDrawFractalButton;
     QTabWidget *tabWidget;
     QWidget *Fractaltab;
     QGraphicsView *graphicsView;
@@ -94,7 +95,7 @@ public:
         lineEdit->setGeometry(QRect(80, 20, 111, 27));
         drawFractal = new QPushButton(fractalGroupBox);
         drawFractal->setObjectName(QString::fromUtf8("drawFractal"));
-        drawFractal->setGeometry(QRect(220, 30, 97, 61));
+        drawFractal->setGeometry(QRect(370, 30, 97, 61));
         lineEdit_2 = new QLineEdit(fractalGroupBox);
         lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
         lineEdit_2->setGeometry(QRect(90, 50, 113, 25));
@@ -110,13 +111,16 @@ public:
         label_2->setAlignment(Qt::AlignCenter);
         restartButton = new QPushButton(fractalGroupBox);
         restartButton->setObjectName(QString::fromUtf8("restartButton"));
-        restartButton->setGeometry(QRect(320, 30, 94, 61));
+        restartButton->setGeometry(QRect(480, 30, 94, 61));
         label_3 = new QLabel(fractalGroupBox);
         label_3->setObjectName(QString::fromUtf8("label_3"));
         label_3->setGeometry(QRect(20, 110, 58, 15));
         toSkip = new QLineEdit(fractalGroupBox);
         toSkip->setObjectName(QString::fromUtf8("toSkip"));
         toSkip->setGeometry(QRect(90, 110, 113, 25));
+        noDrawFractalButton = new QPushButton(fractalGroupBox);
+        noDrawFractalButton->setObjectName(QString::fromUtf8("noDrawFractalButton"));
+        noDrawFractalButton->setGeometry(QRect(260, 30, 95, 61));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setGeometry(QRect(0, 0, 1021, 551));
@@ -138,7 +142,7 @@ public:
         Plotter->setGeometry(QRect(0, 10, 691, 501));
         plottedPoints = new QPlainTextEdit(PlotTab);
         plottedPoints->setObjectName(QString::fromUtf8("plottedPoints"));
-        plottedPoints->setGeometry(QRect(700, 10, 311, 471));
+        plottedPoints->setGeometry(QRect(700, 10, 311, 461));
         linearRegressionButton = new QPushButton(PlotTab);
         linearRegressionButton->setObjectName(QString::fromUtf8("linearRegressionButton"));
         linearRegressionButton->setGeometry(QRect(866, 480, 141, 27));
@@ -182,6 +186,7 @@ public:
         QObject::connect(linearRegressionButton, SIGNAL(clicked()), MainWindow, SLOT(onLinearRegression()));
         QObject::connect(useScriptButton, SIGNAL(clicked()), MainWindow, SLOT(onUseScriptClicked()));
         QObject::connect(savePlotPDF, SIGNAL(clicked()), MainWindow, SLOT(onSavePlottedPDF()));
+        QObject::connect(noDrawFractalButton, SIGNAL(clicked()), MainWindow, SLOT(onNoDrawFractal()));
 
         tabWidget->setCurrentIndex(1);
 
@@ -204,6 +209,7 @@ public:
         label_2->setText(QApplication::translate("MainWindow", "q:", 0, QApplication::UnicodeUTF8));
         restartButton->setText(QApplication::translate("MainWindow", "Restart", 0, QApplication::UnicodeUTF8));
         label_3->setText(QApplication::translate("MainWindow", "Skip", 0, QApplication::UnicodeUTF8));
+        noDrawFractalButton->setText(QApplication::translate("MainWindow", "No Draw", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(Fractaltab), QApplication::translate("MainWindow", "Fractal Tab", 0, QApplication::UnicodeUTF8));
         linearRegressionButton->setText(QApplication::translate("MainWindow", "Linear Regression", 0, QApplication::UnicodeUTF8));
         savePlotPDF->setText(QApplication::translate("MainWindow", "Save PDF", 0, QApplication::UnicodeUTF8));
